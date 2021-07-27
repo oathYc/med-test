@@ -1,0 +1,36 @@
+# 日志
+[log]
+    dir = "/var/log/medlinker-test/med-test" # 日志路径
+    category = "service" # 日志类别
+    level = "info" # 日志级别
+    std_print = false # 控制台是否打印
+
+[server]
+    addr = "0.0.0.0:13001" # gRPC 地址
+
+[database]
+    [database.med_test] # 写库
+        driver = "mysql" # 数据库驱动
+        source = "root:123456@tcp(127.0.0.1:13306)/med_test?charset=utf8&parseTime=True&loc=Local" # 数据库源
+        connmaxlifetime=500 # 数据库最大连接时长
+        [database.med_test.log]
+            mode = 2 # 日志模式： 0-无日志, 1-写日志, 2-读写日志
+            category = "sql" # 日志类别
+    [database.med_online] # 写库
+        driver = "mysql" # 数据库驱动
+        source = "meddev:akdjfkaj2399I@tcp(47.98.48.43:3307)/out_online?charset=utf8mb4&parseTime=true"
+        connmaxlifetime=500 # 数据库最大连接时长
+        [database.med_online.log]
+        mode = 2 # 日志模式： 0-无日志, 1-写日志, 2-读写日志
+        category = "sql" # 日志类别
+
+# Redis数据库配置
+[redis]
+    [[redis.med_test]]
+        addr = "127.0.0.1:6378"
+        auth     = ""
+        db       = 0
+        idle     = 100
+        active   = 10
+        wait     = true
+        connect_timeout = 10
